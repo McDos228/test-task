@@ -19,7 +19,17 @@ function mapResponse (symbol) {
 }
 
 async function addToFavorites (symbol) {
-  fs.writeFileSync(fileName, symbol + '\n', { flag: 'a' });
+  try {
+    if (!symbol) {
+      throw new Error('Symbol is required');
+    }
+  
+    fs.writeFileSync(fileName, symbol + '\n', { flag: 'a' });
+  
+    return true;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getFavorites() {
